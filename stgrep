@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo 'stgrep: grep changed files'
+
+if [ -z "$1" ]; then
+  echo 'usage: stgrep searchstring'
+  exit 1
+fi
+
+for i in $( git st|grep " M "|sed "s/[A-Z]\ \+//" ); do
+  echo " M $i";
+  grep -ni $1 $i; 
+done
+

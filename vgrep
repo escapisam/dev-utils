@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/find . -path ./htdocs/files -prune -o -print0 |/bin/grep -v .svn -z|/bin/egrep '(\.php|\.tpl|\.html|\.js)$' -z|/usr/bin/xargs -0 /bin/egrep -n -s -i $1
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /d/Sam/Projects/vapormedia/opsworks-custom-cookbooks/vapormedia_app_dev/.kitchen/kitchen-vagrant/default-ubuntu-1404
+vagrant up
+cd -
+
