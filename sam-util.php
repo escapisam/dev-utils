@@ -1,9 +1,17 @@
 <?php
 
-function whereami($idx = 0, $print = true)
+function whereami($depthto = 0, $depthfrom = false, $print = true)
 {
+    if (false === $depthfrom || $depthfrom < $depthto) {
+        $depthfrom = $depthto;
+    }
+    
     $t = debug_backtrace();
-    $out = "<div style=\"background:white;color:black;padding:1em\">At {$t[$idx]['file']}:{$t[$idx]['line']}</div>";
+    $out = '<div style=\"background:white;color:black;padding:1em\">';
+    for ($idx = $depthfrom; $idx >= $depthto; $idx--) {
+        $out .= "At {$t[$idx]['file']}:{$t[$idx]['line']}<br>";
+    }
+    $out .= '</div>';
     if (!$print) {
         return $out;
     }
