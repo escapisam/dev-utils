@@ -7,9 +7,10 @@ function whereami($depthto = 0, $depthfrom = false, $print = true)
     }
     
     $t = debug_backtrace();
-    $out = '<div style=\"background:white;color:black;padding:1em\">';
+    $depthfrom = min($depthfrom, sizeof($t));
+    $out = "<div style=\"background:white;color:black;padding:1em\">\n";
     for ($idx = $depthfrom; $idx >= $depthto; $idx--) {
-        $out .= "At {$t[$idx]['file']}:{$t[$idx]['line']}<br>";
+        $out .= "At {$t[$idx]['file']}:{$t[$idx]['line']}<br>\n";
     }
     $out .= '</div>';
     if (!$print) {
