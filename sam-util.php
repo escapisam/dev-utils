@@ -37,7 +37,7 @@ function pd()
     foreach (func_get_args() as $arg) {
         print_r($arg);
     }
-    echo '</pre>';
+    echo "\n</pre>";
     exit;
 }
 

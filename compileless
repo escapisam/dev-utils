@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd /d/Sam/Projects/vapormedia/opsworks-custom-cookbooks/vapormedia_app_dev/.kitchen/kitchen-vagrant/default-ubuntu-1404;
+/c/HashiCorp/Vagrant/bin/vagrant ssh -c "cd /srv/www/vapormedia/vapormedia-2015/web/less && make ../compiled-css/$1 ../compiled-css/touch-$1"
+status=$?
+cd -
+exit $status
+#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compileless news-virtualsports-afl.css'

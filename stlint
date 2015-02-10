@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo 'stlint: php lint check changed files'
+
+for i in $( git status -sb|grep " M "|sed "s/[A-Z]\ \+//" ); do
+  php -l $i; 
+done
+
