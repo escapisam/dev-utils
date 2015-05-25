@@ -1,8 +1,27 @@
 #!/bin/bash
 
+LOCKFILE=.vagrant-ssh-lockfile;
+
 cd /d/Sam/Projects/vapormedia/opsworks-custom-cookbooks/vapormedia_app_dev/.kitchen/kitchen-vagrant/default-ubuntu-1404;
-/c/HashiCorp/Vagrant/bin/vagrant ssh -c "cd /srv/www/vapormedia/vapormedia-2015/web/less && make ../compiled-css/$1 ../compiled-css/touch-$1"
+
+# Use a lockfile to stop vagrant from freaking out when multiple ssh connections are requested
+if [ -f $LOCKFILE ];
+then
+  echo "Lockfile exists, exiting"
+  exit
+fi
+
+touch $LOCKFILE
+/c/HashiCorp/Vagrant/bin/vagrant ssh -c "sleep 3; cd /srv/www/vapormedia/vapormedia-2015/web/less && make ../compiled-css/$1.css ../compiled-css/touch-$1.css ../compiled-css/$1-blessed1.css"
 status=$?
+
+if [ -f $LOCKFILE ];
+  then
+  rm $LOCKFILE
+fi
+
 cd -
 exit $status
-#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compileless news-virtualsports-afl.css'
+
+# PHPStorm File Watcher:
+#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compileless news-virtualsports-nrl' 

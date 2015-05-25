@@ -1,5 +1,8 @@
 <?php
 
+ini_set('xdebug.var_display_max_depth', 10);
+ini_set('xdebug.var_display_max_data', 4096);
+
 function whereami($depthto = 0, $depthfrom = false, $print = true)
 {
     if (false === $depthfrom || $depthfrom < $depthto) {
@@ -19,7 +22,7 @@ function whereami($depthto = 0, $depthfrom = false, $print = true)
     echo $out;
 }
 
-function dd()
+function sdd()
 {
     echo '<div style="background:white;color:black;clear:both; margin-top:2em">';
     whereami(1);
@@ -36,10 +39,8 @@ function pd()
     whereami(1);
     foreach (func_get_args() as $arg) {
         print_r($arg);
+        echo "\n";
     }
-    echo "\n</pre>";
+    echo '</pre>';
     exit;
 }
-
-
-
