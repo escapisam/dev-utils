@@ -1,27 +1,16 @@
 #!/bin/bash
 
-LOCKFILE=.vagrant-ssh-lockfile;
+set -e
 
-cd /d/Sam/Projects/vapormedia/opsworks-custom-cookbooks/vapormedia_app_dev/.kitchen/kitchen-vagrant/default-ubuntu-1404;
+PATH=$PATH:/c/Users/User/AppData/Roaming/npm/:"/c/Program Files (x86)/nodejs/"
+LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=/d:/Sam/Projects/vapormedia/vapormedia-2015/web/ --source-map"
 
-# Use a lockfile to stop vagrant from freaking out when multiple ssh connections are requested
-if [ -f $LOCKFILE ];
-then
-  echo "Lockfile exists, exiting"
-  exit
-fi
+cd /d/Sam/Projects/vapormedia/vapormedia-2015/web/less
 
-touch $LOCKFILE
-/c/HashiCorp/Vagrant/bin/vagrant ssh -c "sleep 3; cd /srv/www/vapormedia/vapormedia-2015/web/less && make ../compiled-css/$1.css ../compiled-css/touch-$1.css ../compiled-css/$1-blessed1.css"
-status=$?
-
-if [ -f $LOCKFILE ];
-  then
-  rm $LOCKFILE
-fi
+lessc --modify-var='screen-md=1px' --modify-var='screen-xs=0px' --modify-var='screen-sm=0px' $LESS_OPTIONS games/$1.less ../compiled-css/$1.css
+lessc --modify-var='screen-md=6000px' $LESS_OPTIONS games/$1.less ../compiled-css/touch-$1.css
 
 cd -
-exit $status
 
 # PHPStorm File Watcher:
-#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compileless news-virtualsports-nrl' 
+#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compilelessnative $1' 
