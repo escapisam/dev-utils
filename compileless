@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# define environment variables as needed
+source `dirname $0`/defines
+
 set -e
 
 PATH=$PATH:/c/Users/User/AppData/Roaming/npm/:"/c/Program Files (x86)/nodejs/"
-LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=/d:/Sam/Projects/vapormedia/vapormedia-2015/web/ --source-map"
+LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=$wc/web/ --source-map"
 
-cd /d/Sam/Projects/vapormedia/vapormedia-2015/web/less
+cd $wc/web/less
 
 lessc --modify-var='screen-md=1px' --modify-var='screen-xs=0px' --modify-var='screen-sm=0px' $LESS_OPTIONS games/$1.less ../compiled-css/$1.css
 lessc --modify-var='screen-md=6000px' $LESS_OPTIONS games/$1.less ../compiled-css/touch-$1.css
@@ -13,4 +16,5 @@ lessc --modify-var='screen-md=6000px' $LESS_OPTIONS games/$1.less ../compiled-cs
 cd -
 
 # PHPStorm File Watcher:
-#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compilelessnative $1' 
+#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/docompileless blah.css'
+
