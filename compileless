@@ -5,7 +5,6 @@ source `dirname $0`/defines
 
 set -e
 
-PATH=$PATH:/c/Users/User/AppData/Roaming/npm/:"/c/Program Files (x86)/nodejs/"
 LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=$wc/web/ --source-map"
 
 cd $wc/web/less
