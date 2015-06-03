@@ -13,6 +13,9 @@ function whereami($depthto = 0, $depthfrom = false, $print = true)
     $depthfrom = min($depthfrom, sizeof($t));
     $out = "<div style=\"background:white;color:black;padding:1em\">\n";
     for ($idx = $depthfrom; $idx >= $depthto; $idx--) {
+        if (!isset($t[$idx]) || !isset($t[$idx]['file']) || !isset($t[$idx]['line'])) {
+            continue;
+        }
         $out .= "At {$t[$idx]['file']}:{$t[$idx]['line']}<br>\n";
     }
     $out .= '</div>';
@@ -44,3 +47,6 @@ function pd()
     echo '</pre>';
     exit;
 }
+
+
+
