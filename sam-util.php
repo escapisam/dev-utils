@@ -38,7 +38,7 @@ function sdd()
 {
     if (function_exists('dd')) {
         whereami(1, 1);
-        call_user_func('dd', func_get_args());
+        call_user_func_array('dd', func_get_args());
     }
 
     $out = '<div style="background:white;color:black;clear:both; margin-top:2em">'."\n";
