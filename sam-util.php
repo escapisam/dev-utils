@@ -5,10 +5,14 @@ ini_set('xdebug.var_display_max_data', 4096);
 
 function whereami($depthto = 0, $depthfrom = false, $print = true)
 {
-    if (false === $depthfrom || $depthfrom < $depthto) {
+    if (false === $depthfrom) {
+        $depthfrom = 100;
+    }
+
+    if ($depthfrom < $depthto) {
         $depthfrom = $depthto;
     }
-    
+
     $t = debug_backtrace();
     $depthfrom = min($depthfrom, sizeof($t));
     $out = "<div style=\"background:white;color:black;padding:1em\">\n";
@@ -22,31 +26,48 @@ function whereami($depthto = 0, $depthfrom = false, $print = true)
     if (!$print) {
         return $out;
     }
+
+    if (php_sapi_name() == 'cli') {
+        $out = strip_tags($out);
+    }
+
     echo $out;
 }
 
 function sdd()
 {
-    echo '<div style="background:white;color:black;clear:both; margin-top:2em">';
-    whereami(1);
+    if (function_exists('dd')) {
+        whereami(1, 1);
+        call_user_func('dd', func_get_args());
+    }
+
+    $out = '<div style="background:white;color:black;clear:both; margin-top:2em">'."\n";
+    whereami(1,1);
+    ob_start();
     foreach (func_get_args() as $arg) {
         var_dump($arg);
     }
-    echo '</div>';
+    $out .= ob_get_clean() . "</div>\n";
+
+    if (php_sapi_name() == 'cli') {
+        $out = strip_tags($out);
+    }
+
+    echo $out;
     exit;
 }
 
 function pd()
 {
-    echo '<pre style="background:white;color:black;clear:both; margin-top:2em">';
-    whereami(1);
+    $out = '<pre style="background:white;color:black;clear:both; margin-top:2em">'."\n";
+    whereami(1,1);
     foreach (func_get_args() as $arg) {
-        print_r($arg);
-        echo "\n";
+        $out .= print_r($arg, true) . "\n";
     }
-    echo '</pre>';
+    $out .= '</pre>'."\n";
+    if (php_sapi_name() == 'cli') {
+        $out = strip_tags($out);
+    }
+    echo $out;
     exit;
 }
-
-
-
