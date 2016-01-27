@@ -3,11 +3,15 @@
 # define environment variables as needed
 source `dirname $0`/defines
 
+basedir=$wc
+
+echo "Using \$basedir=$basedir"
+
 set -e
 
-LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=$wc/web/ --source-map"
+LESS_OPTIONS="--no-color --clean-css --source-map-less-inline --source-map-rootpath=../ --source-map-basepath=$basedir/web/ --source-map"
 
-cd $wc/web/less
+cd $basedir/web/less
 
 lessc --modify-var='screen-md=1px' --modify-var='screen-xs=0px' --modify-var='screen-sm=0px' $LESS_OPTIONS games/$1.less ../compiled-css/$1.css
 lessc --modify-var='screen-md=6000px' $LESS_OPTIONS games/$1.less ../compiled-css/touch-$1.css
@@ -15,5 +19,5 @@ lessc --modify-var='screen-md=6000px' $LESS_OPTIONS games/$1.less ../compiled-cs
 cd -
 
 # PHPStorm File Watcher:
-#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/docompileless blah.css'
+#   "C:\Program Files (x86)\Git\bin\sh.exe" -c 'command -p /d/Sam/bin/compileless vapormedia-virtualsports-afl_contests'
 
